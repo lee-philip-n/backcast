@@ -5,6 +5,9 @@ var VideoPlayerView = Backbone.View.extend({
     //edit video ID
     //render new video 
     this.listenTo(this.collection, 'select', this.switch);
+    
+    
+    // this.render();
   },
 
   switch: function(select) {
@@ -14,6 +17,7 @@ var VideoPlayerView = Backbone.View.extend({
 
   render: function() {
     
+    console.log(this.model);
     var videoID = this.model.get('id');
     var title = this.model.attributes.snippet.title;
     var desc = this.model.attributes.snippet.description;

@@ -4,19 +4,19 @@ var AppView = Backbone.View.extend({
 
 
   initialize: function() {
-    this.videos = new Videos(window.exampleVideoData);
+    // this.videos = new Videos(window.exampleVideoData);
+    this.listenTo(this.collection, 'sync', this.render);
+    // this.collection.search('Udacity');
     this.render();
-    
-        
   },
 
-
+  
   render: function() {
-
+    this.model = this.model || this.collection.at(0);
     this.$el.html(this.template());
-    var searchView = new SearchView({el: this.$('.search')});
-    var videoListView = new VideoListView({el: this.$('.list'), collection: this.videos});
-    var videoPlayerView = new VideoPlayerView({el: this.$('.player'), model: this.videos.at(0), collection: this.videos});
+    var searchView = new SearchView({el: this.$('.search'), collection: this.collection});
+    var videoListView = new VideoListView({el: this.$('.list'), collection: this.collection});
+    var videoPlayerView = new VideoPlayerView({el: this.$('.player'), model: this.model});
     searchView.render();
     videoListView.render();
     videoPlayerView.render();
